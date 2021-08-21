@@ -5,7 +5,6 @@
 		> created : 2021-08-20 20:19
 *************************************************/
 
-//Header files
 #include<iostream>
 #include<conio.h>
 #include<string.h>

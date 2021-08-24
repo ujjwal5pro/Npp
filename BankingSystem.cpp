@@ -24,7 +24,7 @@ class admin{
     int mainmenu();
 };
 
-static class branch{
+class branch{
     string name;
     string address;
     long ID;
@@ -35,9 +35,9 @@ static class branch{
 	void add();
 	void view();
 	
-}b,bnew[10];
+};
 
-static class customer{
+class customer{
 	string name;
 	string address;
 	static int accounttno;
@@ -57,9 +57,9 @@ static class customer{
 		cout<<"\nSelect option : ";
 		cin>>selection;
 	}
-}c,cnew[10];
+};
 
-static class transacton{
+class transacton{
 	static int ID;
 	int accounttno;
 	long balance;
@@ -78,9 +78,9 @@ static class transacton{
 		cout<<"\nSelect option : ";
 		cin>>selection;
 	}
-}t,tnew[50];
+};
 
-static class employee{
+class employee{
 	string name;
 	string address;
 	static int ID;
@@ -99,7 +99,7 @@ static class employee{
 		cout<<"\nSelect option : ";
 		cin>>selection;
 	}
-}e,enew[10];
+};
 
 
 //Main program

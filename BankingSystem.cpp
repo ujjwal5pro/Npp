@@ -1,8 +1,8 @@
 /*************************************************
-		> Filename : Banking System
-		> Author : clone
-		> Mail : theujjwalverma@wordpress.com
-		> created : 2021-08-20 20:19
+	> Filename : Banking System
+	> Author : clone
+	> Mail : theujjwalverma@wordpress.com
+	> created : 2021-08-20 20:19
 *************************************************/
 
 #include<iostream>

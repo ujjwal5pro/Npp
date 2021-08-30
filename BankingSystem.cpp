@@ -242,7 +242,7 @@ void branch::update(){
 void branch::viewlist(){
 	cout<<"ID\tName\tAddress"<<endl;
 	for(int i=0;i<bcount;i++)
-		cout<<i<<"\t"<<b[i].name<<b[i].address<<endl;
+		cout<<i<<"\t"<<b[i].name<<"\t"<<b[i].address<<endl;
 }
 
 void branch::view(int i){

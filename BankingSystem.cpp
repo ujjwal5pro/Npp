@@ -5,16 +5,19 @@
 	> created : 2021-08-20 20:19
 *************************************************/
 
+// includes
 #include<iostream>
 #include<conio.h>
 #include<string.h>
 #define newl "\n\t\t\t"
 #define FOR(i,n) for(int i=0;i<n;i++)
+	
+int bcount = 0;
 
 using namespace std;
 
-//Class
-class admin{
+// declare structes
+struct admin{
 	string user="Admin";
 	string password="Admin";
 	
@@ -24,7 +27,7 @@ class admin{
     int mainmenu();
 };
 
-class branch{
+struct branch{
     string name;
     string address;
     long ID;
@@ -33,11 +36,14 @@ class branch{
 	public: 
 	void homepage();
 	void add();
-	void view();
+	void del();
+	void update();
+	void viewlist();
+	void view(int i);
 	
-};
+}b[5];
 
-class customer{
+struct customer{
 	string name;
 	string address;
 	static int accounttno;
@@ -57,9 +63,9 @@ class customer{
 		cout<<"\nSelect option : ";
 		cin>>selection;
 	}
-};
+}c;
 
-class transacton{
+struct transacton{
 	static int ID;
 	int accounttno;
 	long balance;
@@ -78,9 +84,9 @@ class transacton{
 		cout<<"\nSelect option : ";
 		cin>>selection;
 	}
-};
+}t;
 
-class employee{
+struct employee{
 	string name;
 	string address;
 	static int ID;
@@ -99,7 +105,7 @@ class employee{
 		cout<<"\nSelect option : ";
 		cin>>selection;
 	}
-};
+}e;
 
 
 //Main program
@@ -120,7 +126,7 @@ int main(){
 }
 
 
-//Fuctions
+//define Fuctions
 void admin::banner(){
 	system("cls");
 	cout<<"**************************************";
@@ -171,7 +177,7 @@ int admin:: mainmenu(){
 		cout<<"\nSelect option : ";
 		cin>>selection;
 		switch(selection){
-			case 1: b.homepage();
+			case 1: b[1].homepage();
 			        break;
 			case 2: c.homepage();
 					break;
@@ -187,38 +193,61 @@ int admin:: mainmenu(){
 }
 
 void branch::homepage(){
-	int selection;
-	system("cls");
-	cout<<"\n\n Branch Menu"<<endl;
-	cout<<"1. Add"<<endl;
-	cout<<"2. Delete"<<endl;
-	cout<<"3. Update"<<endl;
-	cout<<"4. Search"<<endl;
-	cout<<"0. Back"<<endl;
-	cout<<"\nSelect option : ";
-	cin>>selection;
-	switch(selection){
-		case 1:add();
-			   break;
-		case 4:view();
-		       getch();
-		default : break;
+	int selection=-1;
+   while(selection!=0){
+		system("cls");
+		cout<<"\n\n Branch Menu"<<endl;
+		cout<<"1. Add"<<endl;
+		cout<<"2. Delete"<<endl;
+		cout<<"3. Update"<<endl;
+		cout<<"4. View"<<endl;
+		cout<<"0. Back"<<endl;
+		cout<<"\nSelect option : ";
+		cin>>selection;
+		switch(selection){
+			case 1:add();
+				break;
+			case 2:del();
+				break;
+			case 3:update();
+				break;
+			case 4:viewlist();
+				getch();
+			    break;
+			default : break;
+		}
 	}
 }
 
 void branch::add(){
 	cout<<"Enter name :";
-	cin>>bnew[count].name;
+	cin>>b[bcount].name;
 	cout<<"Enter address :";
-	cin>>bnew[count].address;
-	bnew[count].ID=count;
-	count++;
+	cin>>b[bcount].address;
+	b[bcount].ID=bcount;
+	bcount++;
 
 }
 
-void branch::view(){
+void branch::del(){
+	
+	//comming soon;
+}
+
+void branch::update(){
+	
+	//comming soon;
+}
+
+void branch::viewlist(){
+	cout<<"ID\tName\tAddress"<<endl;
+	for(int i=0;i<bcount;i++)
+		cout<<i<<"\t"<<b[i].name<<b[i].address<<endl;
+}
+
+void branch::view(int i){
 	cout<<"\nBranch Details";
-	cout<<"\nName: "<<bnew[count].name;
-	cout<<"\nAddress: "<<bnew[count].address;
-	cout<<"\nID: "<<bnew[count].ID;
+	cout<<"\nName: "<<b[i].name;
+	cout<<"\nAddress: "<<b[i].address;
+	cout<<"\nID: "<<b[i].ID;
 }

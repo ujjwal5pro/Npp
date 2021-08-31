@@ -9,28 +9,25 @@
 #include<iostream>
 #include<conio.h>
 #include<string.h>
+#include".\b_help.h"
+using namespace std;
+
+//macros
 #define newl "\n\t\t\t"
 #define FOR(i,n) for(int i=0;i<n;i++)
 	
-int bcount = 0;
-
-using namespace std;
-
-// declare structes
-struct admin{
-	string user="Admin";
-	string password="Admin";
-	
-	public : 
-	void banner();
-	int login();
-    int mainmenu();
-};
+//global variables
+const int MAX_entry = 10;
+int BCount = 0;
+int CCount = 0;
+int TCount = 0;
+int ECount = 0;
 
 struct branch{
     string name;
     string address;
     long ID;
+	bool is_deleted;
     int count=0;
 	
 	public: 
@@ -41,7 +38,7 @@ struct branch{
 	void viewlist();
 	void view(int i);
 	
-}b[5];
+}b[MAX_entry];
 
 struct customer{
 	string name;
@@ -49,20 +46,10 @@ struct customer{
 	static int accounttno;
 	long balance;
 	int count=0;
+	bool is_deletd;
 	
 	public: 
-	void homepage(){
-		int selection;
-		system("cls");
-		cout<<"\n\n Customer Menu"<<endl;
-		cout<<"1. Add"<<endl;
-		cout<<"2. Delete"<<endl;
-		cout<<"3. Update"<<endl;
-		cout<<"4. Search"<<endl;
-		cout<<"0. Back"<<endl;
-		cout<<"\nSelect option : ";
-		cin>>selection;
-	}
+	void homepage();
 }c;
 
 struct transacton{
@@ -71,19 +58,10 @@ struct transacton{
 	long balance;
 	long tr_amount;	
 	int count=0;
+	bool is_deleted;
 	
 	public: 
-	void homepage(){
-		int selection;
-		system("cls");
-		cout<<"\n\n Transaction Menu"<<endl;
-		cout<<"1. Deposit"<<endl;
-		cout<<"2. Withdraw"<<endl;
-		cout<<"3. Transaction details"<<endl;
-		cout<<"0. Back"<<endl;
-		cout<<"\nSelect option : ";
-		cin>>selection;
-	}
+	void homepage();
 }t;
 
 struct employee{
@@ -91,20 +69,10 @@ struct employee{
 	string address;
 	static int ID;
 	int count=0;
+	bool is_deleted;
 	
 	public: 
-	void homepage(){
-		int selection;
-		system("cls");
-		cout<<"\n\n Employee Menu"<<endl;
-		cout<<"1. Add"<<endl;
-		cout<<"2. Delete"<<endl;
-		cout<<"3. Update"<<endl;
-		cout<<"4. Search"<<endl;
-		cout<<"0. Back"<<endl;
-		cout<<"\nSelect option : ";
-		cin>>selection;
-	}
+	void homepage();
 }e;
 
 
@@ -193,8 +161,7 @@ int admin:: mainmenu(){
 }
 
 void branch::homepage(){
-	int selection=-1;
-   while(selection!=0){
+   while(1){
 		system("cls");
 		cout<<"\n\n Branch Menu"<<endl;
 		cout<<"1. Add"<<endl;
@@ -203,34 +170,68 @@ void branch::homepage(){
 		cout<<"4. View"<<endl;
 		cout<<"0. Back"<<endl;
 		cout<<"\nSelect option : ";
-		cin>>selection;
-		switch(selection){
-			case 1:add();
+		switch(getch()){
+			case '1':add();
 				break;
-			case 2:del();
+			case '2':del();
 				break;
-			case 3:update();
+			case '3':update();
 				break;
-			case 4:viewlist();
+			case '4':viewlist();
 				getch();
 			    break;
+			case '0': return;
 			default : break;
 		}
 	}
 }
 
 void branch::add(){
+	cout<<"\n";
 	cout<<"Enter name :";
-	cin>>b[bcount].name;
+	cin>>b[BCount].name;
 	cout<<"Enter address :";
-	cin>>b[bcount].address;
-	b[bcount].ID=bcount;
-	bcount++;
-
+	cin>>b[BCount].address;
+	b[BCount].ID=BCount;
+	b[BCount].is_deleted=false;
+	BCount++;
 }
 
 void branch::del(){
+	string b_name = "";
+	int ID = -1;
+	bool is_success=false;
+	cout<<"\n";
+	cout<<"1. Delete by name"<<endl;
+	cout<<"2. Delete by ID"<<endl;
+	cout<<"Select option :";
+	switch(getch()){
+		case '1' : 
+			cout<<"\nEnter name :";
+			cin>>b_name;
+			break;
+		case '2':
+			cout<<"\nEnter ID :";
+			cin>>ID;
+			break;
+		default : cout<<"Invalid selection"<<endl;
+			break;
+	}
 	
+	FOR(i,BCount){
+		if(b[i].name==b_name || b[i].ID==ID){
+			b[i].is_deleted=true;
+			is_success=true;
+			break;
+		}
+	}
+	
+	if(is_success)
+		cout<<"Item deleted";
+	else
+		cout<<"item not found";
+	
+	getch();
 	//comming soon;
 }
 
@@ -240,9 +241,12 @@ void branch::update(){
 }
 
 void branch::viewlist(){
-	cout<<"ID\tName\tAddress"<<endl;
-	for(int i=0;i<bcount;i++)
-		cout<<i<<"\t"<<b[i].name<<"\t"<<b[i].address<<endl;
+	cout<<"\n";
+	cout<<"ID\tNAME\tADDRESS"<<endl;
+	FOR(i,BCount){
+		if(b[i].is_deleted==false)
+			cout<<i<<"\t"<<b[i].name<<"\t"<<b[i].address<<endl;
+	}
 }
 
 void branch::view(int i){
@@ -250,4 +254,42 @@ void branch::view(int i){
 	cout<<"\nName: "<<b[i].name;
 	cout<<"\nAddress: "<<b[i].address;
 	cout<<"\nID: "<<b[i].ID;
+}
+
+void customer::homepage(){
+	int selection;
+	system("cls");
+	cout<<"\n\n Customer Menu"<<endl;
+	cout<<"1. Add"<<endl;
+	cout<<"2. Delete"<<endl;
+	cout<<"3. Update"<<endl;
+	cout<<"4. Search"<<endl;
+	cout<<"0. Back"<<endl;
+	cout<<"\nSelect option : ";
+	cin>>selection;
+}
+
+void transacton::homepage(){
+	int selection;
+	system("cls");
+	cout<<"\n\n Transaction Menu"<<endl;
+	cout<<"1. Deposit"<<endl;
+	cout<<"2. Withdraw"<<endl;
+	cout<<"3. Transaction details"<<endl;
+	cout<<"0. Back"<<endl;
+	cout<<"\nSelect option : ";
+	cin>>selection;
+}
+
+void employee::homepage(){
+	int selection;
+	system("cls");
+	cout<<"\n\n Employee Menu"<<endl;
+	cout<<"1. Add"<<endl;
+	cout<<"2. Delete"<<endl;
+	cout<<"3. Update"<<endl;
+	cout<<"4. Search"<<endl;
+	cout<<"0. Back"<<endl;
+	cout<<"\nSelect option : ";
+	cin>>selection;
 }

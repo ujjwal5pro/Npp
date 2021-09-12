@@ -10,5 +10,6 @@ struct admin{
 	void banner();
 	int login();
     int mainmenu();
+	void masterHomepage(string str);
 };
 

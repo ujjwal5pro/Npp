@@ -31,7 +31,6 @@ struct branch{
     int count=0;
 	
 	public: 
-	void homepage();
 	void add();
 	void del();
 	void update();
@@ -48,8 +47,7 @@ struct customer{
 	int count=0;
 	bool is_deletd;
 	
-	public: 
-	void homepage();
+	public:
 }c;
 
 struct transacton{
@@ -61,7 +59,6 @@ struct transacton{
 	bool is_deleted;
 	
 	public: 
-	void homepage();
 }t;
 
 struct employee{
@@ -72,7 +69,6 @@ struct employee{
 	bool is_deleted;
 	
 	public: 
-	void homepage();
 }e;
 
 
@@ -145,13 +141,13 @@ int admin:: mainmenu(){
 		cout<<"\nSelect option : ";
 		cin>>selection;
 		switch(selection){
-			case 1: b[1].homepage();
+			case 1: masterHomepage("branch");
 			        break;
-			case 2: c.homepage();
+			case 2: masterHomepage("customer");
 					break;
-			case 3: t.homepage();
+			case 3: masterHomepage("transaction");
 					break;
-			case 4: e.homepage();
+			case 4: masterHomepage("employee");
 					break;
 			case 0: break;
 			Default : selection=-1;
@@ -160,26 +156,54 @@ int admin:: mainmenu(){
 	return 0;
 }
 
-void branch::homepage(){
-   while(1){
+void admin::masterHomepage(string str){
+	while(1){
+		branch b;
 		system("cls");
-		cout<<"\n\n Branch Menu"<<endl;
-		cout<<"1. Add"<<endl;
-		cout<<"2. Delete"<<endl;
-		cout<<"3. Update"<<endl;
-		cout<<"4. View"<<endl;
-		cout<<"0. Back"<<endl;
-		cout<<"\nSelect option : ";
+		if(str=="branch"){
+			cout<<"\n\n Branch Menu"<<endl;
+			cout<<"1. Add"<<endl;
+			cout<<"2. Delete"<<endl;
+			cout<<"3. Update"<<endl;
+			cout<<"4. View"<<endl;
+			cout<<"0. Back"<<endl;
+			cout<<"\nSelect option : ";
+		}else if(str=="customer"){
+			cout<<"\n\n Customer Menu"<<endl;
+			cout<<"1. Add"<<endl;
+			cout<<"2. Delete"<<endl;
+			cout<<"3. Update"<<endl;
+			cout<<"4. Search"<<endl;
+			cout<<"0. Back"<<endl;
+			cout<<"\nSelect option : ";
+		}else if(str=="transacton"){
+			cout<<"\n\n Transaction Menu"<<endl;
+			cout<<"1. Deposit"<<endl;
+			cout<<"2. Withdraw"<<endl;
+			cout<<"3. Transaction details"<<endl;
+			cout<<"0. Back"<<endl;
+			cout<<"\nSelect option : ";
+		}else if(str=="employee"){
+			cout<<"\n\n Employee Menu"<<endl;
+			cout<<"1. Add"<<endl;
+			cout<<"2. Delete"<<endl;
+			cout<<"3. Update"<<endl;
+			cout<<"4. Search"<<endl;
+			cout<<"0. Back"<<endl;
+			cout<<"\nSelect option : ";
+		}else {
+			cout<<"Invalid optoin"<<endl;
+		}
 		switch(getch()){
-			case '1':add();
+			case '1':b.add();
 				break;
-			case '2':del();
+			case '2':b.del();
 				break;
-			case '3':update();
+			case '3':b.update();
 				break;
-			case '4':viewlist();
+			case '4':b.viewlist();
 				getch();
-			    break;
+				break;
 			case '0': return;
 			default : break;
 		}
@@ -254,42 +278,4 @@ void branch::view(int i){
 	cout<<"\nName: "<<b[i].name;
 	cout<<"\nAddress: "<<b[i].address;
 	cout<<"\nID: "<<b[i].ID;
-}
-
-void customer::homepage(){
-	int selection;
-	system("cls");
-	cout<<"\n\n Customer Menu"<<endl;
-	cout<<"1. Add"<<endl;
-	cout<<"2. Delete"<<endl;
-	cout<<"3. Update"<<endl;
-	cout<<"4. Search"<<endl;
-	cout<<"0. Back"<<endl;
-	cout<<"\nSelect option : ";
-	cin>>selection;
-}
-
-void transacton::homepage(){
-	int selection;
-	system("cls");
-	cout<<"\n\n Transaction Menu"<<endl;
-	cout<<"1. Deposit"<<endl;
-	cout<<"2. Withdraw"<<endl;
-	cout<<"3. Transaction details"<<endl;
-	cout<<"0. Back"<<endl;
-	cout<<"\nSelect option : ";
-	cin>>selection;
-}
-
-void employee::homepage(){
-	int selection;
-	system("cls");
-	cout<<"\n\n Employee Menu"<<endl;
-	cout<<"1. Add"<<endl;
-	cout<<"2. Delete"<<endl;
-	cout<<"3. Update"<<endl;
-	cout<<"4. Search"<<endl;
-	cout<<"0. Back"<<endl;
-	cout<<"\nSelect option : ";
-	cin>>selection;
 }
